@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using W2V.Posts.API.Configurations;
+using W2V.Posts.API.Domain.DAL;
+using W2V.Posts.API.Domain.Repositories;
+using W2V.Posts.API.Domain.Services;
+using W2V.Posts.API.Serialization;
 
 namespace W2V.Posts.API
 {
@@ -25,7 +30,24 @@ namespace W2V.Posts.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            InitConfigurations(services);
+            services.AddSingleton(typeof(IPostService), typeof(PostService));
+            services.AddSingleton(typeof(IDataBaseConfiguration), typeof(RedisDataBaseConfiguration));
+            services.AddSingleton(typeof(IPostsRepository), typeof(PostsRedisRepository));
+            services.AddSingleton(typeof(IRedisDataBaseService), typeof(RedisDataBaseService));
+            services.AddSingleton(typeof(ISerializer), typeof(NewtonsoftSerializer));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        }
+
+        private void InitConfigurations(IServiceCollection services)
+        {
+            services.Configure<RedisDataBaseConfiguration>(config =>
+            {
+                config.DbConnectionString = Configuration.GetSection("RedisDataBaseConfiguration:DbConnectionString").Value;
+
+                config.KeyExpirationTime = TimeSpan.TryParse(Configuration.GetSection("RedisDataBaseConfiguration:KeyExpirationTime").Value,
+                    out var keyExpirationTimeValue) ? keyExpirationTimeValue : TimeSpan.FromMinutes(1);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

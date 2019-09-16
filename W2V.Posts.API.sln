@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "W2V.Posts.API", "W2V.Posts.API\W2V.Posts.API.csproj", "{497BA3DF-AAD9-4CDA-A2B0-3A982DC7F4D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "W2V.Posts.API", "W2V.Posts.API\W2V.Posts.API.csproj", "{497BA3DF-AAD9-4CDA-A2B0-3A982DC7F4D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

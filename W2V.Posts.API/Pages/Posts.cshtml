@@ -1,0 +1,38 @@
+﻿@page
+@using W2V.Posts.API.Domain.Models
+@model W2V.Posts.API.Pages.PostsModel
+@{
+    <table>
+        <tr>
+            <th>
+                Creation time
+            </th>
+            <th>
+                UpVotes
+            </th>
+            <th>
+                DownVotes
+            </th>
+            <th>
+                Text
+            </th>
+        </tr>
+        @foreach (var post in Model.PostList)
+        {
+            <tr>
+                <td>
+                    @post.CreationTime
+                </td>
+                <td>
+                    @post.UpVotes
+                </td>
+                <td>
+                    @post.DownVotes
+                </td>
+                <td>
+                    @post.Text
+                </td>
+            </tr>
+        }
+    </table>
+}
