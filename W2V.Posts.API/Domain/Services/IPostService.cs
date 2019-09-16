@@ -7,7 +7,7 @@ namespace W2V.Posts.API.Domain.Services
 {
     public interface IPostService
     {
-        Task<IEnumerable<Post>> GetAllPosts();
+        Task<IEnumerable<Post>> GetTopPosts();
         Task<PostResponse> CreatePost(Post post);
         Task<PostResponse> IncrementUpVotes(long postId);
         Task<PostResponse> IncrementDownVotes(long postId);

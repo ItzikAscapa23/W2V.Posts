@@ -19,7 +19,7 @@ namespace W2V.Posts.API.Domain.Repositories
             _serializer = serializer;
         }
 
-        public async Task<IEnumerable<Post>> GetAllPosts()
+        public async Task<IEnumerable<Post>> GetTopPosts()
         {
             IEnumerable<Post> posts = null;
             try

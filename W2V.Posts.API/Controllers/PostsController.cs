@@ -17,36 +17,10 @@ namespace W2V.Posts.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Post>> GetAllPosts()
+        public async Task<IEnumerable<Post>> GetTopPosts()
         {
-            //IEnumerable<Post> posts = new List<Post>()
-            //{
-            //    new Post()
-            //    {
-            //        CreationTime = DateTime.UtcNow,
-            //        Id = 1,
-            //        Text = "1st test post",
-            //        DownVotes = 5,
-            //        UpVotes = 50
-            //    },
-            //    new Post()
-            //    {
-            //        CreationTime = DateTime.UtcNow,
-            //        Id = 2,
-            //        Text = "2nd test post",
-            //        DownVotes = 25,
-            //        UpVotes = 100
-            //    },
-            //    new Post()
-            //    {
-            //        CreationTime = DateTime.UtcNow,
-            //        Id = 3,
-            //        Text = "3td test post",
-            //        DownVotes = 52,
-            //        UpVotes = 300
-            //    }
-            //};
-            var posts = await _postService.GetAllPosts();
+            var posts = await _postService.GetTopPosts();
+
             return posts;
         }
 

@@ -16,9 +16,9 @@ namespace W2V.Posts.API.Domain.Services
             _postsRepository = postsRepository;
         }
 
-        public async Task<IEnumerable<Post>> GetAllPosts()
+        public async Task<IEnumerable<Post>> GetTopPosts()
         {
-            return await _postsRepository.GetAllPosts();
+            return await _postsRepository.GetTopPosts();
         }
 
         public async Task<PostResponse> CreatePost(Post post)

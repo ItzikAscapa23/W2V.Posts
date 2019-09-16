@@ -23,7 +23,7 @@ namespace W2V.Posts.API.Pages
         public async Task<IActionResult> OnGet()
         {
             //Change to get from some sort of cache
-            PostList = await _postService.GetAllPosts();
+            PostList = await _postService.GetTopPosts();
             return RedirectToPage();
         }
     }

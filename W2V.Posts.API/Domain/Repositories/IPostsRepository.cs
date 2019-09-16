@@ -6,7 +6,7 @@ namespace W2V.Posts.API.Domain.Repositories
 {
     public interface IPostsRepository
     {
-        Task<IEnumerable<Post>> GetAllPosts();
+        Task<IEnumerable<Post>> GetTopPosts();
         Task CreatePost(Post p);
         Task IncrementUpVotes(long postId);
         Task IncrementDownVotes(long postId);
