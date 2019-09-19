@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using W2V.Posts.API.Domain.Models;
 using W2V.Posts.API.Domain.Repositories;
-using W2V.Posts.API.Domain.Services.Communication;
 
 namespace W2V.Posts.API.Domain.Services
 {
@@ -16,88 +14,39 @@ namespace W2V.Posts.API.Domain.Services
             _postsRepository = postsRepository;
         }
 
-        public async Task<IEnumerable<Post>> GetTopPosts()
+        public async Task<IEnumerable<Post>> GetTopPosts(int numOfPosts)
         {
-            return await _postsRepository.GetTopPosts();
+            return await _postsRepository.GetTopPosts(numOfPosts);
         }
 
-        public async Task<PostResponse> CreatePost(Post post)
+        public async Task<IEnumerable<Post>> GetAllPosts()
         {
-            try
-            {
+            return await _postsRepository.GetAllPosts();
+        }
+
+        public async Task CreatePost(Post post)
+        {
                 await _postsRepository.CreatePost(post);
-
-                return new PostResponse(post);
-            }
-            catch (Exception ex)
-            {
-                return new PostResponse($"An error occurred when creating Post: {ex.Message}");
-            }
         }
 
-        public async Task<PostResponse> IncrementUpVotes(long postId)
+        public async Task IncrementUpVotes(long postId)
         {
-            try
-            {
-                Post existingPost = await _postsRepository.GetPostById(postId);
-
-                if (existingPost == null)
-                {
-                    return new PostResponse($"Post with id={postId} not found.");
-                }
-
                 await _postsRepository.IncrementUpVotes(postId);
-
-                existingPost.UpVotes++;
-                return new PostResponse(existingPost);
-            }
-            catch (Exception ex)
-            {
-                return new PostResponse($"An error occurred when increment UpVotes: {ex.Message}");
-            }
         }
 
-        public async Task<PostResponse> IncrementDownVotes(long postId)
+        public async Task IncrementDownVotes(long postId)
         {
-            try
-            {
-                Post existingPost = await _postsRepository.GetPostById(postId);
-
-                if (existingPost == null)
-                {
-                    return new PostResponse($"Post with id={postId} not found.");
-                }
-
-                await _postsRepository.IncrementDownVotes(postId);
-
-                existingPost.DownVotes++;
-                return new PostResponse(existingPost);
-            }
-            catch (Exception ex)
-            {
-                return new PostResponse($"An error occurred when increment DownVotes: {ex.Message}");
-            }
+            await _postsRepository.IncrementDownVotes(postId);
         }
 
-        public async Task<PostResponse> DeletePost(long postId)
+        public async Task DeletePost(long postId)
         {
-            try
-            {
-                Post existingPost = await _postsRepository.GetPostById(postId);
+            await _postsRepository.DeletePost(postId);
+        }
 
-                if (existingPost == null)
-                {
-                    return new PostResponse($"Post with id={postId} not found.");
-                }
-
-                await _postsRepository.DeletePost(postId);
-
-                return new PostResponse(existingPost);
-            }
-            catch (Exception ex)
-            {
-                return new PostResponse($"An error occurred when Delete Post: {ex.Message}");
-            }
+        public async Task UpdatePostText(long postId, string text)
+        {
+            await _postsRepository.UpdatePostText(postId, text);
         }
     }
 }

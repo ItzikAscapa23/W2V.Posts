@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using W2V.Posts.API.Configurations;
 using W2V.Posts.API.Domain.DAL;
 using W2V.Posts.API.Domain.Repositories;
 using W2V.Posts.API.Domain.Services;
-using W2V.Posts.API.Serialization;
 
 namespace W2V.Posts.API
 {
@@ -32,11 +26,13 @@ namespace W2V.Posts.API
         {
             InitConfigurations(services);
             services.AddSingleton(typeof(IPostService), typeof(PostService));
-            services.AddSingleton(typeof(IDataBaseConfiguration), typeof(RedisDataBaseConfiguration));
             services.AddSingleton(typeof(IPostsRepository), typeof(PostsRedisRepository));
             services.AddSingleton(typeof(IRedisDataBaseService), typeof(RedisDataBaseService));
-            services.AddSingleton(typeof(ISerializer), typeof(NewtonsoftSerializer));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
         }
 
         private void InitConfigurations(IServiceCollection services)

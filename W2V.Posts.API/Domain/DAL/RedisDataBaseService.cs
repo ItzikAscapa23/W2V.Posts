@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using W2V.Posts.API.Configurations;
 
@@ -9,13 +10,13 @@ namespace W2V.Posts.API.Domain.DAL
     {
         private readonly Lazy<ConnectionMultiplexer> _lazyConnection;
 
-        public RedisDataBaseService(IDataBaseConfiguration dataBaseConfiguration)
+        public RedisDataBaseService(IOptions<RedisDataBaseConfiguration> dataBaseConfiguration)
         {
-            KeyExpirationTime = dataBaseConfiguration.KeyExpirationTime;
+            KeyExpirationTime = dataBaseConfiguration.Value.KeyExpirationTime;
 
             var configurationOptions = new ConfigurationOptions
             {
-                EndPoints = { dataBaseConfiguration.DbConnectionString }
+                EndPoints = { dataBaseConfiguration.Value.DbConnectionString }
             };
 
             _lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(configurationOptions));

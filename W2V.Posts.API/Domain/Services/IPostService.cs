@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using W2V.Posts.API.Domain.Models;
-using W2V.Posts.API.Domain.Services.Communication;
 
 namespace W2V.Posts.API.Domain.Services
 {
     public interface IPostService
     {
-        Task<IEnumerable<Post>> GetTopPosts();
-        Task<PostResponse> CreatePost(Post post);
-        Task<PostResponse> IncrementUpVotes(long postId);
-        Task<PostResponse> IncrementDownVotes(long postId);
-        Task<PostResponse> DeletePost(long postId);
+        Task<IEnumerable<Post>> GetTopPosts(int numOfPosts);
+        Task<IEnumerable<Post>> GetAllPosts();
+        Task CreatePost(Post post);
+        Task IncrementUpVotes(long postId);
+        Task IncrementDownVotes(long postId);
+        Task DeletePost(long postId);
+        Task UpdatePostText(long postId, string text);
     }
 }

@@ -6,11 +6,12 @@ namespace W2V.Posts.API.Domain.Repositories
 {
     public interface IPostsRepository
     {
-        Task<IEnumerable<Post>> GetTopPosts();
-        Task CreatePost(Post p);
+        Task<IEnumerable<Post>> GetTopPosts(int numOfPosts);
+        Task<IEnumerable<Post>> GetAllPosts();
+        Task CreatePost(Post post);
         Task IncrementUpVotes(long postId);
         Task IncrementDownVotes(long postId);
         Task DeletePost(long postId);
-        Task<Post> GetPostById(long postId);
+        Task UpdatePostText(long postId, string text);
     }
 }
