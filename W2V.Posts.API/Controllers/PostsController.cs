@@ -43,7 +43,6 @@ namespace W2V.Posts.API.Controllers
             return response;
         }
 
-
         [HttpGet("TopPosts")]
         public async Task<PostsResponse> TopPosts(int numOfPosts)
         {
@@ -67,7 +66,6 @@ namespace W2V.Posts.API.Controllers
 
             return response;
         }
-
 
         [HttpPost("CreatePost")]
         public async Task<PostsResponse> CreatePost([FromBody] Post p)
@@ -106,6 +104,7 @@ namespace W2V.Posts.API.Controllers
 
             return response;
         }
+
         [HttpPut("IncrementUpVotes")]
         public async Task<PostsResponse> IncrementUpVotes(long postId)
         {
